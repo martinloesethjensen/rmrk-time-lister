@@ -1,6 +1,6 @@
 # rmrk-time-lister
 
-This script will list an owners NFT with an amount to be increased linearly over a specified timeinterval.
+This script will list an owner's NFT with an amount to be increased linearly over a specified timeinterval.
 
 [Follow LIST spec for RMRK::1.0.0 protocol](https://github.com/rmrk-team/rmrk-spec/blob/master/standards/rmrk1.0.0/interactions/list.md)
 
