@@ -28,3 +28,11 @@ Options:
                                                                       [required]
   --timeinterval, -t  Timeinterval for listing in seconds             [required]
 ```
+
+## Tipping
+
+KSM address
+
+```text
+HtSKUKWRPCxCtzsnNfdbN1NN5uVq4yMizb2FqeHSC3YoRTi
+```
