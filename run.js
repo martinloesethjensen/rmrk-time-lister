@@ -103,18 +103,10 @@ async function main() {
 
   const shouldPutStartingAmount = startAmount > 0 && ROUND == 1;
 
-  if (shouldPutStartingAmount) {
-    const tx = api.tx.system.remark(
-      `RMRK::LIST::1.0.0::${rmrkId}::${startAmountPrecision}`
-    );
-    console.log(tx.toHuman());
-
-    //const _ = await sendAndFinalize(tx, account);
-  }
+  var hasPutStartAmount = false;
 
   await new Promise((_) =>
     setInterval(async function () {
-
       var _amount;
 
       if (shouldDecrease) {
@@ -123,27 +115,36 @@ async function main() {
         _amount = startAmountPrecision + amountPrecision * ROUND;
       }
 
-      const tx = api.tx.system.remark(
-        `RMRK::LIST::1.0.0::${rmrkId}::${_amount}`
-      );
-      ROUND++;
-      console.log(tx.toHuman());
-
       if (shouldDecrease && _amount <= 0) {
-        throw new Error("Amount have reached 0");
-      } 
+        // exit
+        process.exit();
+      }
 
       if (limit !== undefined) {
         if (shouldDecrease && _amount < limitPrecision) {
           // exit
           process.exit();
         } else if (!shouldDecrease && _amount > limitPrecision) {
-          // exit 
-          process.exit()
+          // exit
+          process.exit();
         }
       }
 
-      //const _ = await sendAndFinalize(tx, account);
+      var tx;
+
+      if (shouldPutStartingAmount && !hasPutStartAmount) {
+        tx = api.tx.system.remark(
+          `RMRK::LIST::1.0.0::${rmrkId}::${startAmountPrecision}`
+        );
+        hasPutStartAmount = true;
+      } else {
+        tx = api.tx.system.remark(`RMRK::LIST::1.0.0::${rmrkId}::${_amount}`);
+        ROUND++;
+      }
+
+      console.log(tx.toHuman());
+
+      const _ = await sendAndFinalize(tx, account);
     }, time * 1000)
   );
 }
