@@ -13,8 +13,11 @@ This script doesn't account for checking if NFT is belonging to the account addr
 Example
 
 ```sh
-node run.js --id "<RMRK_ID>" -e wss://westend-rpc.polkadot.io -s .seed -a 0.1 -t 7
+node run.js --id "<RMRK_ID>" -e wss://westend-rpc.polkadot.io -s <PATH_TO_SEED_FILE> --start-amount <KSM> --amount <KSM> --timeinterval <SECONDS> --limit <KSM> 
 ```
+
+> To perform a Dutch auction with this script then you just add the `--decrease` flag.
+> If `--start-amount` is not specified then it will begin at `0`.
 
 ```text
 Options:
